@@ -5,22 +5,22 @@
     </div>
 
     <div class="cronometro">
-      <h1>Minutos.segundos</h1>
+      <h1>{{minutos}}.{{segundos}}</h1>
     </div>
 
     <div class="ajusteTempo" v-if="!start">
-      <button class="padraoBotao">-</button> <h3>tempo</h3> <button class="padraoBotao">+</button>
+      <button class="padraoBotao" @click="decrementar">-</button> <h3>{{tempoSelecionado}}</h3> <button class="padraoBotao" @click="tempoSelecionado++">+</button>
     </div>
 
     <div class="comandos">
       <div v-if="!start">
-        <button class="padraoBotao botaoComando">Start</button>
+        <button class="padraoBotao botaoComando" @click="botaoStart">Start</button>
       </div>
 
       <div v-else>
-        <button class="padraoBotao botaoComando">Pausar</button>
-        <button class="padraoBotao botaoComando">Continuar</button>
-        <button class="padraoBotao botaoComando">Zerar</button>
+        <button class="padraoBotao botaoComando" @click="pararTempo">Pausar</button>
+        <button class="padraoBotao botaoComando" @click="startTempo">Continuar</button>
+        <button class="padraoBotao botaoComando" @click="zerar">Zerar</button>
       </div>
     </div>
   </div>
@@ -31,7 +31,55 @@ export default {
   name: 'Pomodoro',
   data() {
     return {
-      start: false
+      timer: null,
+      start: false,
+      tempoSelecionado: 0,
+      minutos: 0,
+      segundos: 0,
+    }
+  },
+
+  methods: {
+    
+    decrementar: function (){
+      if( this.tempoSelecionado > 0 && this.tempoSelecionado != 0){
+        this.tempoSelecionado--;
+      }
+    },
+
+    botaoStart: function(){
+      if(this.tempoSelecionado != 0){
+          this.start = true;
+          this.minutos = this.tempoSelecionado - 1;
+          this.segundos = 60;
+          this.startTempo();
+      }
+    },
+
+    zerar: function(){
+      this.tempoSelecionado = 0;
+      this.minutos = 0;
+      this.segundos = 0;
+      this.pararTempo()
+      this.start = false;
+    },
+
+    startTempo: function(){
+      this.timer = setInterval(()=> this.decrementaTempo(), 1000);
+    },
+
+    decrementaTempo: function(){
+      if(this.segundos == 0){
+        this.minutos--;
+        this.segundos = 60
+      }else{
+        this.segundos--;
+      }
+    },
+    
+    pararTempo: function(){
+      clearInterval(this.timer);
+      this.timer = null
     }
   }
 }
@@ -62,8 +110,8 @@ export default {
 }
 
 .cronometro h1{
-  font-size: 20px;
-  margin-left: 22px;
+  font-size: 40px;
+  margin-left: 90px;
 }
 
 .ajusteTempo{
