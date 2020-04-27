@@ -1,11 +1,12 @@
 <template>
-  <div id = "Pomodoro">
+  <div id = "Pomodoro" class="animated fadeInLeft">
     <div class="titulo">
-      <h1>PomodoroClock</h1>
+      <h1>Pomodoro<span>Clock</span></h1>
     </div>
 
     <div class="cronometro">
       <h1>{{minutos}}.{{segundos}}</h1>
+      <h3 v-if="start">{{tempoSelecionado}} min</h3>
     </div>
 
     <div class="ajusteTempo" v-if="!start">
@@ -88,20 +89,23 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #Pomodoro{
-  padding-top: 80px;
+  padding-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .titulo{
+  font-family: 'Noto Sans TC', sans-serif;
   color: aliceblue;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  font-size: 20px;
 }
-
+.titulo span {
+  font-size: 50px;
+  text-shadow: red 2px 2px 5px;
+}
 .cronometro{
-  display: flex;
-  align-items: center;
   height: 250px;
   width: 250px;
   border-radius: 50%;
@@ -110,8 +114,17 @@ export default {
 }
 
 .cronometro h1{
+  letter-spacing: 5px;
+  margin-top: 100px;
+  font-size: 40px;
+  margin-left: 33%;
+}
+
+.cronometro h3{
+  margin-top: 10px;
   font-size: 40px;
   margin-left: 90px;
+  font-size: 20px;
 }
 
 .ajusteTempo{
@@ -121,6 +134,7 @@ export default {
 }
 
 .padraoBotao{
+  font-family: 'Noto Sans TC', sans-serif;
   border-radius: 50%;
   height: 40px;
   width: 40px;
@@ -136,6 +150,7 @@ export default {
 }
 
 .comando{
+  margin-top: 15px;
   display: flex;
   align-items: center;
 }
