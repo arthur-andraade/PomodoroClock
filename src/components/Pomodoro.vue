@@ -4,7 +4,7 @@
       <h1>Pomodoro<span>Clock</span></h1>
     </div>
 
-    <div class="cronometro">
+    <div class="cronometro" :class="{botaoSelecionado: start, cronometroFundo: start}">
       <h1>{{minutos}}.{{segundos}}</h1>
       <h3 v-if="start">{{tempoSelecionado}} min</h3>
     </div>
@@ -19,8 +19,8 @@
       </div>
 
       <div v-else>
-        <button class="padraoBotao botaoComando" @click="pararTempo">Pausar</button>
-        <button class="padraoBotao botaoComando" @click="startTempo">Continuar</button>
+        <button class="padraoBotao botaoComando" :class="{botaoSelecionado: pressionaPausar}" @click="pressionarPausarEContinuar"  >Pausar</button>
+        <button class="padraoBotao botaoComando"  :class="{botaoSelecionado: pressionaContinuar}"   @click="pressionarPausarEContinuar">Continuar</button>
         <button class="padraoBotao botaoComando" @click="zerar">Zerar</button>
       </div>
     </div>
@@ -37,6 +37,8 @@ export default {
       tempoSelecionado: 0,
       minutos: 0,
       segundos: 0,
+      pressionaPausar: false,
+      pressionaContinuar: false
     }
   },
 
@@ -63,6 +65,8 @@ export default {
       this.segundos = 0;
       this.pararTempo()
       this.start = false;
+      this.pressionaPausar = false;
+      this.pressionaContinuar = false;
     },
 
     startTempo: function(){
@@ -72,7 +76,7 @@ export default {
     decrementaTempo: function(){
       if(this.segundos == 0){
         this.minutos--;
-        this.segundos = 60
+        this.segundos = 60;
       }else{
         this.segundos--;
       }
@@ -81,15 +85,25 @@ export default {
     pararTempo: function(){
       clearInterval(this.timer);
       this.timer = null
-    }
+    },
+
+    pressionarPausarEContinuar: function(){
+      if(this.pressionaPausar){
+        this.pressionaPausar = false;
+        this.pressionaContinuar = true
+        this.startTempo()
+      }else{
+        this.pressionaPausar = true;
+        this.pressionaContinuar = false;
+        this.pararTempo()
+      }
+    },
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #Pomodoro{
-  padding-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,19 +125,20 @@ export default {
   border-radius: 50%;
   background-color: aliceblue;
   box-shadow: red 0px 0px 20px;
+  margin-bottom: 20px;
 }
 
 .cronometro h1{
   letter-spacing: 5px;
-  margin-top: 100px;
+  margin-top: 90px;
   font-size: 40px;
-  margin-left: 33%;
+  margin-left: 80px;
 }
 
 .cronometro h3{
   margin-top: 10px;
   font-size: 40px;
-  margin-left: 90px;
+  margin-left: 85px;
   font-size: 20px;
 }
 
@@ -150,7 +165,7 @@ export default {
 }
 
 .comando{
-  margin-top: 15px;
+  margin-top: 40px;
   display: flex;
   align-items: center;
 }
@@ -166,4 +181,15 @@ export default {
 .botaoComando:hover{
   background-color:#18d500;
 }
+
+.botaoSelecionado{
+  background-color:#18d500;
+  transition: 2s;
+  box-shadow: 0px 0px 20px #38b42f,0px 0px 40px #38b42f,0px 0px 80px #38b42f;
+}
+
+.cronometroFundo{
+  background-color: white;
+}
+
 </style>
