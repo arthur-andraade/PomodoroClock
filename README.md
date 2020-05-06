@@ -1,6 +1,6 @@
 <h1 align = "center">PomodoroClock :hourglass:</h1>
   
-<h2 align="center">Mini projeto de uma cronômetro construído com Vue.js</h2>
+<h2 align="center">Mini projeto de um cronômetro construído com Vue.js</h2>
 <h2>Tecnologias utilizadas:</h2>
 <ul type = "none">
   <li>:pushpin: Vue.js</li>
