@@ -1,24 +1,9 @@
-# pomodoro
-
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<h1 align = "center">PomodoroClock :hourglass:</h1>
+  
+<h2>Mini projeto de uma cronômetro construído com Vue.js</h2>
+<h2>Tecnologias utilizadas</h2>
+<ul>
+  <li>:pushpin: Vue.js</li>
+  <li>:pushpin: Vue CLI</li>
+  <li>:pushpin: Animate.css</li>
+</ul>
